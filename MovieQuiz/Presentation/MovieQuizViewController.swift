@@ -67,6 +67,8 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
+    @IBOutlet private weak var yesButton: UIButton!
+    @IBOutlet private weak var noButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,12 +80,14 @@ final class MovieQuizViewController: UIViewController {
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer: Bool = false
+        changeButtonState(isEnabled: false)
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
     @IBAction  private func yesButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer: Bool = true
+        changeButtonState(isEnabled: false)
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
@@ -93,6 +97,11 @@ final class MovieQuizViewController: UIViewController {
             question: model.text,
             questionNumber: "\(currentQuestionIndex+1)/\(questions.count)")
         return questionConvert
+    }
+    
+    private func changeButtonState(isEnabled: Bool) {
+        yesButton.isEnabled = isEnabled
+        noButton.isEnabled = isEnabled
     }
     
     private func show(quizStep: QuizStepViewModel) {
@@ -105,16 +114,18 @@ final class MovieQuizViewController: UIViewController {
         
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
-        
         if isCorrect {
             imageView.layer.borderColor = UIColor.ypGreen.cgColor
             correctAnswers += 1
         } else {imageView.layer.borderColor = UIColor.ypRed.cgColor}
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
             self.showNextQuestionOrResults()
+            imageView.layer.borderColor = UIColor.clear.cgColor
+            changeButtonState(isEnabled: true)
         }
     }
+    
     private func show(quizResult:QuizResultsViewModel){
         let alert = UIAlertController(title: quizResult.title, message: quizResult.text, preferredStyle: .alert)
         
@@ -124,6 +135,7 @@ final class MovieQuizViewController: UIViewController {
             let firstQuestion = self.questions[self.currentQuestionIndex]
             let firstShower = self.convert(model: firstQuestion)
             self.show(quizStep: firstShower)
+            self.imageView.layer.borderColor = UIColor.clear.cgColor
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -133,7 +145,7 @@ final class MovieQuizViewController: UIViewController {
         
         if currentQuestionIndex == questions.count - 1 {
             let viewModel = QuizResultsViewModel(
-                title: "Раунд окончен", text: "Ваш результат: \(correctAnswers)", buttonText: "Сыграть еще раз"
+                title: "Раунд окончен", text: "Ваш результат: \(correctAnswers)/10", buttonText: "Сыграть еще раз"
             )
             show(quizResult: viewModel)
         } else { // 2
