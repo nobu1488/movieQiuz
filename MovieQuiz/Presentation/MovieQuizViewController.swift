@@ -1,6 +1,5 @@
 import UIKit
 
-
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertPresenterDelegate{
     
     @IBOutlet private var imageView: UIImageView!
@@ -122,7 +121,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             statisticService.store(correct: correctAnswers, total: questionsAmount)
             let gamesCount = statisticService.gamesCount
             let bestGame = statisticService.bestGame
-            let Accuracy = String(format: "%.2f", statisticService.totalAccuracy*100)
+            let Accuracy = String(format: "%.2f", statisticService.totalAccuracy)
             let text = "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Рекорд:\(bestGame.correct) (\(bestGame.date.dateTimeString)) \n Средняя точность: \(Accuracy) %"
             
             let viewModel = QuizResultsViewModel(

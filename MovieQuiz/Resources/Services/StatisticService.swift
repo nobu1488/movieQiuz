@@ -46,7 +46,7 @@ class StatisticService: StatisticServiceProtocol{
         let totalCorrectAnswers = newResult.correct + correct
         let totalQuestions = newResult.total + total
         if totalQuestions != 0{
-            totalAccuracy = Double(totalCorrectAnswers)/Double(totalQuestions)
+            totalAccuracy = Double(totalCorrectAnswers)*10/Double(gamesCount)
         }
         }
 }
