@@ -1,6 +1,6 @@
 import UIKit
 
-class AlertPresenter:AlertPresenterProtocol{
+final class AlertPresenter:AlertPresenterProtocol {
     var delegate: AlertPresenterDelegate?
     func show(alertModel: AlertModel) {
         let alert = UIAlertController(title: alertModel.title, message: alertModel.message, preferredStyle: .alert)
