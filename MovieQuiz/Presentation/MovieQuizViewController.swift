@@ -7,6 +7,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private weak var yesButton: UIButton!
     @IBOutlet private weak var noButton: UIButton!
+    @IBOutlet private weak var questionTitle: UILabel!
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
@@ -19,8 +20,18 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //fonts
+        textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
+        counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        questionTitle.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        yesButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium"
+        , size: 20)
+        noButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium"
+        , size: 20)
+        
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
+        
         
         let alertPresenter = AlertPresenter()
         alertPresenter.delegate = self
