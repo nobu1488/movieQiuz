@@ -4,36 +4,44 @@ class StatisticService: StatisticServiceProtocol {
     
     private let storage: UserDefaults = .standard
     
+    private enum keys: String {
+        case gameCount
+        case bestGameCorrect
+        case bestGameTotal
+        case bestGameDate
+        case totalAccuracy
+    }
+    
     var gamesCount: Int {
         get{
-             return storage.integer(forKey: "gameCount")
+            return storage.integer(forKey: keys.gameCount.rawValue)
         }
         set{
-            storage.set(newValue, forKey: "gameCount")
+            storage.set(newValue, forKey: keys.gameCount.rawValue)
         }
     }
     
     var bestGame: GameResult{
         get{
-            return GameResult(correct: storage.integer(forKey: "bestGameCorrect"),
-                       total: storage.integer(forKey: "bestGameTotal"),
-                       date: UserDefaults.standard.object(forKey: "bestGameDate") as? Date ?? Date())
+            return GameResult(correct: storage.integer(forKey: keys.bestGameCorrect.rawValue),
+                              total: storage.integer(forKey: keys.bestGameTotal.rawValue),
+                              date: UserDefaults.standard.object(forKey: keys.bestGameDate.rawValue) as? Date ?? Date())
             
             
         }
         set{
-            storage.set(newValue.total, forKey: "bestGameTotal")
-            storage.set(newValue.correct, forKey: "bestGameCorrect")
-            storage.set(newValue.date, forKey: "bestGameDate")
+            storage.set(newValue.total, forKey: keys.bestGameTotal.rawValue)
+            storage.set(newValue.correct, forKey: keys.bestGameCorrect.rawValue)
+            storage.set(newValue.date, forKey: keys.bestGameDate.rawValue)
         }
     }
     
     var totalAccuracy: Double{
         get{
-            return storage.double(forKey: "totalAccuracy")
+            return storage.double(forKey: keys.totalAccuracy.rawValue)
         }
         set{
-            storage.set(newValue, forKey: "totalAccuracy")
+            storage.set(newValue, forKey: keys.totalAccuracy.rawValue)
         }
     }
     

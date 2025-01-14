@@ -108,13 +108,18 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="RCe-sM-a7X">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="nRC-P9-Wiw" secondAttribute="leading" constant="-20" id="0C9-5h-uUS"/>
+                            <constraint firstItem="RCe-sM-a7X" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="CVS-kb-3Pd"/>
                             <constraint firstItem="nRC-P9-Wiw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-20" id="MFW-vM-kov"/>
                             <constraint firstItem="nRC-P9-Wiw" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Tmn-ul-3ts"/>
+                            <constraint firstItem="RCe-sM-a7X" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Y0g-Sy-n6x"/>
                             <constraint firstItem="nRC-P9-Wiw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="z0i-Dy-F5E"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -124,6 +129,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="RCe-sM-a7X" id="tGN-dp-qVd"/>
                         <outlet property="counterLabel" destination="3cr-Qn-Y2U" id="96E-04-hh0"/>
                         <outlet property="imageView" destination="rVB-H3-V2j" id="wdU-ea-hKX"/>
                         <outlet property="noButton" destination="5lA-QL-tnP" id="yGd-Hd-qrX"/>
