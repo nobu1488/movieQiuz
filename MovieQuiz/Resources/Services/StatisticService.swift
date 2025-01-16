@@ -4,7 +4,7 @@ class StatisticService: StatisticServiceProtocol {
     
     private let storage: UserDefaults = .standard
     
-    private enum keys: String {
+    private enum Keys: String {
         case gameCount
         case bestGameCorrect
         case bestGameTotal
@@ -15,43 +15,43 @@ class StatisticService: StatisticServiceProtocol {
     
     var correctAmount: Int{
         get{
-            storage.integer(forKey: keys.correctAmount.rawValue)
+            storage.integer(forKey: Keys.correctAmount.rawValue)
         }
         set{
-            storage.set(newValue, forKey: keys.correctAmount.rawValue)
+            storage.set(newValue, forKey: Keys.correctAmount.rawValue)
         }
     }
     
     var gamesCount: Int {
         get{
-            storage.integer(forKey: keys.gameCount.rawValue)
+            storage.integer(forKey: Keys.gameCount.rawValue)
         }
         set{
-            storage.set(newValue, forKey: keys.gameCount.rawValue)
+            storage.set(newValue, forKey: Keys.gameCount.rawValue)
         }
     }
     
     var bestGame: GameResult{
         get{
-            return GameResult(correct: storage.integer(forKey: keys.bestGameCorrect.rawValue),
-                              total: storage.integer(forKey: keys.bestGameTotal.rawValue),
-                              date: storage.object(forKey: keys.bestGameDate.rawValue) as? Date ?? Date())
+            return GameResult(correct: storage.integer(forKey: Keys.bestGameCorrect.rawValue),
+                              total: storage.integer(forKey: Keys.bestGameTotal.rawValue),
+                              date: storage.object(forKey: Keys.bestGameDate.rawValue) as? Date ?? Date())
             
             
         }
         set{
-            storage.set(newValue.total, forKey: keys.bestGameTotal.rawValue)
-            storage.set(newValue.correct, forKey: keys.bestGameCorrect.rawValue)
-            storage.set(newValue.date, forKey: keys.bestGameDate.rawValue)
+            storage.set(newValue.total, forKey: Keys.bestGameTotal.rawValue)
+            storage.set(newValue.correct, forKey: Keys.bestGameCorrect.rawValue)
+            storage.set(newValue.date, forKey: Keys.bestGameDate.rawValue)
         }
     }
     
     var totalAccuracy: Double{
         get{
-            return storage.double(forKey: keys.totalAccuracy.rawValue)
+            return storage.double(forKey: Keys.totalAccuracy.rawValue)
         }
         set{
-            storage.set(newValue, forKey: keys.totalAccuracy.rawValue)
+            storage.set(newValue, forKey: Keys.totalAccuracy.rawValue)
         }
     }
     

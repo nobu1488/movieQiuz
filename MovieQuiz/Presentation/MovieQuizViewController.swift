@@ -87,7 +87,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true
+        hideLoadingIndicator()
         questionFactory?.requestNextQuestion()
     }
 
@@ -103,6 +103,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         currentQuestion = question
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
+            self?.hideLoadingIndicator()
             self?.show(quizStep: viewModel)
         }
     }
@@ -159,8 +160,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             statisticService.store(correct: correctAnswers, total: questionsAmount)
             let gamesCount = statisticService.gamesCount
             let bestGame = statisticService.bestGame
-            let Accuracy = String(format: "%.2f", statisticService.totalAccuracy)
-            let text = "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Рекорд:\(bestGame.correct) (\(bestGame.date.dateTimeString)) \n Средняя точность: \(Accuracy) %"
+            let accuracy = String(format: "%.2f", statisticService.totalAccuracy)
+            let text = "Ваш результат: \(correctAnswers)/10 \n Количество сыгранных квизов: \(gamesCount) \n Рекорд:\(bestGame.correct) (\(bestGame.date.dateTimeString)) \n Средняя точность: \(accuracy) %"
             
             let viewModel = QuizResultsViewModel(
                 title: "Раунд окончен", text:text, buttonText: "Сыграть еще раз"
@@ -168,6 +169,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             show(quizResult: viewModel)
         } else {
             currentQuestionIndex += 1
+            showLoadingIndicator()
             questionFactory?.requestNextQuestion()
         }
     }
