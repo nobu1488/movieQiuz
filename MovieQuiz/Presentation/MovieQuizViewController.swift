@@ -32,6 +32,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
+        imageView.layer.borderColor = UIColor.clear.cgColor
         
         
         let alertPresenter = AlertPresenter()
@@ -75,7 +76,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         hideLoadingIndicator()
         let alertModel = AlertModel(title: "ОШибка", message: message, buttonText: "Попробовать еще раз", completion: { [weak self] in
             guard let self = self else { return }
-            questionFactory?.requestNextQuestion()
+            questionFactory?.loadData()
             showLoadingIndicator()
         })
         alertPresenter?.show(alertModel: alertModel)
