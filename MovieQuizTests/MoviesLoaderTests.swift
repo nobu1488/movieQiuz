@@ -1,7 +1,7 @@
 import XCTest
 @testable import MovieQuiz
 
-class MoviesLoaderTests: XCTestCase {
+final class MoviesLoaderTests: XCTestCase {
     
     struct StubNetworkClient: NetworkRouting {
         
@@ -62,13 +62,13 @@ class MoviesLoaderTests: XCTestCase {
         let expectation = expectation(description: "Loading expectation")
         
         loader.loadMovies { result in
-        // Then
+            // Then
             switch result {
             case .success(let movies):
-        // сравниваем данные с тем, что мы предполагали
+                // сравниваем данные с тем, что мы предполагали
                 expectation.fulfill()
             case .failure(_):
-        // мы не ожидаем, что пришла ошибка; если она появится, надо будет провалить тест
+                // мы не ожидаем, что пришла ошибка; если она появится, надо будет провалить тест
                 XCTFail("Unexpected failure") // эта функция проваливает тест
             }
         }
@@ -85,7 +85,7 @@ class MoviesLoaderTests: XCTestCase {
         let expectation = expectation(description: "Loading expectation")
         
         loader.loadMovies { result in
-        // Then
+            // Then
             switch result {
             case .failure(let error):
                 XCTAssertNotNil(error)
