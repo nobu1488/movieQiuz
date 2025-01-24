@@ -60,7 +60,7 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, M
     }
     
     func showNetworkError(message: String) {
-        let alertModel = AlertModel(title: "ОШибка", message: message, buttonText: "Попробовать еще раз", completion: { [weak self] in
+        let alertModel = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз", completion: { [weak self] in
             guard let self = self else { return }
             showLoadingIndicator()
             presenter.resetGame()
